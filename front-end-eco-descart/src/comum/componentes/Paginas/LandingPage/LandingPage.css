@@ -1,0 +1,198 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f9f6;
+  color: #2c3e50;
+}
+
+/* Container geral */
+.landing-container {
+  max-width: 1200px;
+  margin: 150px auto 60px;
+  padding: 0 20px;
+}
+
+/* HERO */
+.hero-section {
+  text-align: center;
+  padding: 30px 10px;
+  background: linear-gradient(135deg, #08967D, #16a085);
+  color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  margin-bottom: 60px;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.subheadline {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.95;
+}
+
+/* IMAGEM HERO */
+.hero-image-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* SEÇÕES INFORMATIVAS */
+.info-section,
+.problem-section,
+.solution-section {
+  margin-bottom: 60px;
+  background-color: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.info-section h2,
+.problem-section h2,
+.solution-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #08967D;
+  position: relative;
+}
+
+.info-section h2::after,
+.problem-section h2::after,
+.solution-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 50px;
+  height: 4px;
+  background-color: #16a085;
+  border-radius: 4px;
+}
+
+.info-section p,
+.solution-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.problem-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.problem-section li {
+  margin-bottom: 12px;
+  padding-left: 24px;
+  position: relative;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.problem-section li::before {
+  content: "✔️";
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+
+/* CHAMADA FINAL */
+.call-to-action {
+  text-align: center;
+  margin-top: 60px;
+  padding: 50px 30px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.call-to-action h3 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #08967D;
+}
+
+.call-to-action p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: #34495e;
+}
+
+/* BOTÃO */
+.btn-eco {
+  background-color: #08967D;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-eco:hover {
+  background-color: #077a67;
+  transform: translateY(-3px);
+}
+
+.btn-eco:active {
+  background-color: #066b5a;
+  transform: scale(0.98);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  .landing-container {
+    padding: 0 15px;
+  }
+
+  .hero-section h1 {
+    font-size: 2.2rem;
+  }
+
+  .subheadline {
+    font-size: 1.1rem;
+  }
+
+  .info-section h2,
+  .problem-section h2,
+  .solution-section h2,
+  .call-to-action h3 {
+    font-size: 1.6rem;
+  }
+
+  .btn-eco {
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px;
+  }
+}

@@ -1,0 +1,66 @@
+/* Container principal da lista */
+.lista-pontos-container {
+  max-width: 1000px;  /* aumenta a largura máxima */
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  padding: 0 16px; /* um pouco de padding nas laterais */
+  box-sizing: border-box;
+}
+
+/* Estilo da tabela */
+.lista-pontos-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* ajuda distribuir colunas iguais */
+}
+
+/* Cabeçalho da tabela */
+.lista-pontos-table thead {
+  background-color: #08967D;
+  color: white;
+}
+
+/* Células da tabela */
+.lista-pontos-table th,
+.lista-pontos-table td {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  word-wrap: break-word; /* quebra texto se necessário */
+  text-align: left;
+}
+
+/* Ajustar larguras específicas das colunas (opcional) */
+.lista-pontos-table th:nth-child(1),
+.lista-pontos-table td:nth-child(1) {
+  width: 25%; /* Nome maior */
+}
+
+.lista-pontos-table th:nth-child(2),
+.lista-pontos-table td:nth-child(2) {
+  width: 10%; /* CEP */
+}
+
+.lista-pontos-table th:nth-child(3),
+.lista-pontos-table td:nth-child(3) {
+  width: 10%; /* Estado */
+}
+
+.lista-pontos-table th:nth-child(4),
+.lista-pontos-table td:nth-child(4) {
+  width: 15%; /* Cidade */
+}
+
+.lista-pontos-table th:nth-child(5),
+.lista-pontos-table td:nth-child(5) {
+  width: 15%; /* Bairro */
+}
+
+.lista-pontos-table th:nth-child(6),
+.lista-pontos-table td:nth-child(6) {
+  width: 15%; /* Rua */
+}
+
+.lista-pontos-table th:nth-child(7),
+.lista-pontos-table td:nth-child(7) {
+  width: 10%; /* Número */
+}

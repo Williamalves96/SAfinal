@@ -1,0 +1,94 @@
+/* Container principal */
+.container-coleta {
+  max-width: 600px;
+  margin: 100px auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Títulos */
+.titulo-principal {
+  color: #08967D;
+  text-align: center;
+}
+
+.titulo-secundario {
+  color: #08967D;
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* Formulário */
+.form-coleta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-coleta label {
+  margin-bottom: 4px;
+}
+
+.input-eco {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.input-eco[readonly] {
+  background-color: #f0f0f0;
+}
+
+/* Botão */
+.btn-eco {
+  background-color: #08967D;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-eco:hover {
+  background-color: #077c68;
+}
+
+/* Tabela */
+.tabela-coleta {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tabela-coleta thead {
+  background-color: #08967D;
+  color: white;
+}
+
+.tabela-coleta th,
+.tabela-coleta td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+/* Botões de ação na tabela */
+.btn-acao {
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: white;
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+.btn-editar {
+  background-color: #2A9D8F;
+}
+
+.btn-excluir {
+  background-color: #E76F51;
+}

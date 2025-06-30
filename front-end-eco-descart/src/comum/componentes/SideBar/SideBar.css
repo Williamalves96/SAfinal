@@ -1,0 +1,198 @@
+/* RESET GERAL */
+.sidebar-eco * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+.sidebar-eco-body {
+  background-color: #f7f7f7;
+  color: #2c3e50;
+}
+
+/* HEADER */
+.sidebar-eco-header {
+  background: linear-gradient(to right, #444444, #08967D);
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  border-bottom: 3px solid #16a085;
+}
+
+/* BOTÃO MENU */
+.sidebar-eco-menu-button {
+  color: white;
+  font-size: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* LOGO */
+.sidebar-eco-logo {
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* SIDEBAR */
+.sidebar-eco-sidebar {
+  width: 250px;
+  height: 100vh;
+  background: linear-gradient(to bottom, #444444, #08967D);
+  position: fixed;
+  top: 0;
+  left: -250px;
+  transition: left 0.3s ease;
+  z-index: 998;
+  padding-top: 110px;
+  box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-eco-sidebar.open {
+  left: 0;
+}
+
+.sidebar-eco-sidebar-header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ecf0f1;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.sidebar-eco-sidebar-nav {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-eco-nav-item {
+  display: flex;
+  align-items: center;
+  padding: 18px 25px;
+  color: #bdc3c7;
+  font-size: 18px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  border-bottom: 1px solid #2c3e50;
+}
+
+.sidebar-eco-nav-item:hover {
+  background-color: #08967D;
+  color: white;
+}
+
+.sidebar-eco-nav-item:active {
+  background-color: #1abc9c;
+}
+
+.sidebar-eco-nav-item a {
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+
+.sidebar-eco-sidebar-footer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  color: #ecf0f1;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.sidebar-eco-sidebar-footer a {
+  color: #ecf0f1;
+  text-decoration: none;
+}
+
+.sidebar-eco-sidebar-footer a:hover {
+  color: #16a085;
+}
+
+/* LOGO COM IMAGEM */
+.sidebar-eco-logo-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.sidebar-eco-logo-image {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.sidebar-eco-logo-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ecf0f1;
+}
+
+/* BOTÕES LOGIN/CADASTRO */
+.sidebar-eco-auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.sidebar-eco-auth-button {
+  background-color: #ffffff;
+  color: #08967D;
+  border: 2px solid #08967D;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-eco-auth-button:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.sidebar-eco-auth-button:active {
+  background-color: #e0e0e0;
+  transform: scale(0.98);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  .sidebar-eco-header {
+    padding: 12px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .sidebar-eco-logo {
+    font-size: 22px;
+  }
+
+  .sidebar-eco-sidebar {
+    width: 200px;
+    padding-top: 70px;
+  }
+
+  .sidebar-eco-nav-item {
+    font-size: 16px;
+  }
+
+  .sidebar-eco-auth-buttons {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

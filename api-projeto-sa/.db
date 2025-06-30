@@ -1,0 +1,36 @@
+CREATE DATABASE EcoDescart;
+USE EcoDescart;
+-- Tabela de usuários
+CREATE TABLE usuario (
+    id_usuario INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id_usuario)
+);
+
+-- Tabela de pontos de coleta
+CREATE TABLE ponto_coleta (
+    id_ponto_coleta INT NOT NULL AUTO_INCREMENT,
+    nome_ponto VARCHAR(50) NOT NULL,
+    cep VARCHAR(20) NOT NULL,
+    estado VARCHAR(50) NOT NULL,
+    cidade VARCHAR(100) NOT NULL,
+    bairro VARCHAR(100) NOT NULL,
+    rua VARCHAR(150) NOT NULL,
+    numero VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id_ponto_coleta)
+);
+
+-- Tabela de agendamentos
+CREATE TABLE agendamento (
+    id_agendamento INT NOT NULL AUTO_INCREMENT,
+    nome_item VARCHAR(100) NOT NULL,
+    tamanho_item ENUM('pequeno', 'medio', 'grande') NOT NULL,
+    data_hora DATETIME NOT NULL,
+    id_usuario INT NOT NULL,
+    id_ponto_coleta INT NOT NULL,
+    PRIMARY KEY (id_agendamento),
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_ponto_coleta) REFERENCES ponto_coleta(id_ponto_coleta) ON DELETE CASCADE
+);

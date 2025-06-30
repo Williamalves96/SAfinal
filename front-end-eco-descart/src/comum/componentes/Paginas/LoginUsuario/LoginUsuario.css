@@ -1,0 +1,59 @@
+.form-login {
+  background-color: #f3f9f4;
+  padding: 20px;
+  margin: 5% auto 20px auto; 
+  width: 100%;
+  max-width: 500px; 
+  border: 1px solid #c2e5ca;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 100, 0, 0.1);
+}
+
+
+
+.form-login h2 {
+  text-align: center;
+  color: #3b664b;
+  margin-bottom: 15px;
+}
+
+.input-eco {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1.5px solid #a1c181;
+  border-radius: 6px;
+  background: #eaf4e1;
+  color: #2f4f2f;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.input-eco:focus {
+  border-color: #629460;
+  background-color: #d9e8c5;
+  outline: none;
+}
+
+.btn-eco {
+  width: 100%;
+  padding: 10px;
+  background-color: #4a7c40;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-eco:hover {
+  background-color: #35632a;
+}
+
+.cadastro-link {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+}

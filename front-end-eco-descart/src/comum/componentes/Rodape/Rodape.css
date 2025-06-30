@@ -1,0 +1,42 @@
+/* Estilos gerais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Rodapé */
+.rodape_root {
+  background: linear-gradient(to right, #444444, #08967D); /* Cor ajustada */
+  color: white;
+  padding: 20px 30px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  transition: background 0.3s ease;
+}
+
+.rodape-content p {
+  font-size: 14px;
+  color: #dcdcdc; /* Um tom mais claro para contraste suave */
+}
+
+/* Hover do rodapé */
+.rodape_root:hover {
+  background: linear-gradient(to right, #2f2f2f, #077b6d); /* Hover mais escuro */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .rodape_root {
+    padding: 15px 20px;
+  }
+
+  .rodape-content p {
+    font-size: 12px;
+  }
+}
