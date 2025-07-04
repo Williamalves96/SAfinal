@@ -17,7 +17,7 @@ import RotaProtegida from "./services/RotaProtegida";
 import ListaDePontosDeColeta from "./comum/componentes/CadastrarPontoDeColeta/ListaDePontosDeColeta";
 import PontosDeColeta from "./comum/componentes/CadastrarPontoDeColeta/CadastrarPontoDeColeta";
 import ListaAgendamentoDescarte from "./comum/componentes/Paginas/AgendamentoDescarte/ListaAgendamentoDescartes";
-
+import ListaAgendamentoDescartes from "./comum/componentes/Paginas/AgendamentoDescarte/ListaAgendamentoDescartes";  
 const Layout = ({ children }) => (
   <>
     <Cabecalho />

@@ -9,7 +9,7 @@ const API_URL = "http://localhost:3000/ponto_coleta";
 
 export default function ListaDePontosDeColeta() {
   const [pontos, setPontos] = useState([]);
-  const usuarioLogado = usuarioService.obterUsuario();
+  const usuarioLogado = usuarioService.obterUsuario('usuarioLogado');
 
   useEffect(() => {
     fetchPontos();

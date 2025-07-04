@@ -3,9 +3,15 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { usuarioService } from "../../../../services/usuarioService";
 import "./AgendamentoDescarte.css";
+import "./ListaAgendamentoDescartes.css";
+import SidebarLogado from "../../SidebarLogado/SideBarLogado";  
+import Rodape from "../../Rodape/Rodape";
+import AgendamentoDescarte from "./AgendamentoDescarte";
 
-export default function ListaAgendamentoDescarte() {
-  const usuarioLogado = usuarioService.obterUsuario();
+
+
+export default function ListaAgendamentoDescartes() {
+  const SidebarLogado = usuarioService.obterUsuario();
 
   const [agendamentos, setAgendamentos] = useState([]);
   const [editandoId, setEditandoId] = useState(null);
@@ -36,7 +42,7 @@ export default function ListaAgendamentoDescarte() {
     async function fetchAgendamentos() {
       try {
         const res = await axios.get(
-          `http://localhost:3000/agendamento?usuarioId=${usuarioLogado.id}`
+          `http://localhost:3000/agendamento?usuarioId=${SidebarLogado.id}`
         );
         setAgendamentos(res.data);
       } catch {
@@ -44,7 +50,7 @@ export default function ListaAgendamentoDescarte() {
       }
     }
     fetchAgendamentos();
-  }, [usuarioLogado.id]);
+  }, [SidebarLogado.id]);
 
   // Iniciar edição com os dados do agendamento
   const iniciarEdicao = (agendamento) => {
@@ -93,7 +99,7 @@ export default function ListaAgendamentoDescarte() {
         nome_item: nome,
         tamanho_item: tamanho,
         data_hora: `${data}T${hora}`,
-        id_usuario: usuarioLogado.id,
+        id_usuario: SidebarLogado.id,
         id_ponto_coleta: pontoColetaId,
       });
       toast.success("Agendamento atualizado!");
@@ -121,7 +127,8 @@ export default function ListaAgendamentoDescarte() {
 
   // Excluir agendamento
   const excluirAgendamento = async (id) => {
-    if (!window.confirm("Tem certeza que deseja excluir este agendamento?")) return;
+    if (!window.confirm("Tem certeza que deseja excluir este agendamento?"))
+      return;
 
     try {
       await axios.delete(`http://localhost:3000/agendamento/${id}`);
@@ -132,12 +139,15 @@ export default function ListaAgendamentoDescarte() {
       toast.error("Erro ao excluir agendamento.");
     }
   };
+console.log('oi');
+
+
 
   return (
     <div className="lista-agendamento">
       <h2>Meus Agendamentos</h2>
 
-      {agendamentos.length === 0 && <p>Nenhum agendamento encontrado.</p>}
+      {AgendamentoDescarte.length === 0 && <p>Nenhum agendamento encontrado.</p>}
 
       <ul>
         {agendamentos.map((a) =>
@@ -149,13 +159,27 @@ export default function ListaAgendamentoDescarte() {
                 onChange={handleChange}
                 placeholder="Nome do produto"
               />
-              <select name="tamanho" value={formData.tamanho} onChange={handleChange}>
+              <select
+                name="tamanho"
+                value={formData.tamanho}
+                onChange={handleChange}
+              >
                 <option value="Pequeno">Pequeno</option>
                 <option value="Médio">Médio</option>
                 <option value="Grande">Grande</option>
               </select>
-              <input name="data" type="date" value={formData.data} onChange={handleChange} />
-              <input name="hora" type="time" value={formData.hora} onChange={handleChange} />
+              <input
+                name="data"
+                type="date"
+                value={formData.data}
+                onChange={handleChange}
+              />
+              <input
+                name="hora"
+                type="time"
+                value={formData.hora}
+                onChange={handleChange}
+              />
               <select
                 name="pontoColetaId"
                 value={formData.pontoColetaId}
@@ -177,7 +201,9 @@ export default function ListaAgendamentoDescarte() {
               <strong>{a.nome_item}</strong> — {a.tamanho_item} —{" "}
               {a.data_hora.replace("T", " ")} — Ponto: {a.id_ponto_coleta}
               <button onClick={() => iniciarEdicao(a)}>Editar</button>
-              <button onClick={() => excluirAgendamento(a.id_agendamento)}>Excluir</button>
+              <button onClick={() => excluirAgendamento(a.id_agendamento)}>
+                Excluir
+              </button>
             </li>
           )
         )}
@@ -185,3 +211,4 @@ export default function ListaAgendamentoDescarte() {
     </div>
   );
 }
+

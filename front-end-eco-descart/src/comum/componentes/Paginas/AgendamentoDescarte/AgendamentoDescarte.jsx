@@ -8,19 +8,12 @@ import { toast } from "react-toastify";
 export default function AgendamentoDescarte({ onAgendar }) {
   const usuarioLogado = usuarioService.obterUsuario();
 
-  if (!usuarioLogado) {
-    toast.error("Você precisa estar logado para agendar.");
-    return <div>Usuário não logado. Faça login para continuar.</div>;
-  }
-
-  // Estado do formulário principal (novo agendamento)
   const [nome, setNome] = useState("");
   const [tamanho, setTamanho] = useState("pequeno");
   const [data, setData] = useState("");
   const [hora, setHora] = useState("");
   const [pontoColetaId, setPontoColetaId] = useState("");
 
-  // Estado para edição de agendamento
   const [editandoId, setEditandoId] = useState(null);
   const [formData, setFormData] = useState({
     nome: "",
@@ -30,13 +23,11 @@ export default function AgendamentoDescarte({ onAgendar }) {
     pontoColetaId: "",
   });
 
-  // Listas
   const [pontosDisponiveis, setPontosDisponiveis] = useState([]);
   const [agendamentos, setAgendamentos] = useState([]);
 
-  // Buscar pontos de coleta no load
   useEffect(() => {
-    async function fetchPontos() {
+    const fetchPontos = async () => {
       try {
         const resp = await axios.get("http://localhost:3000/ponto_coleta");
         setPontosDisponiveis(resp.data);
@@ -44,18 +35,16 @@ export default function AgendamentoDescarte({ onAgendar }) {
         console.error("Erro ao carregar pontos de coleta:", error);
         toast.error("Erro ao carregar pontos de coleta.");
       }
-    }
-    fetchPontos();
+    };
+
+    void fetchPontos();
   }, []);
 
-  // Buscar agendamentos do usuário no load e após operações
   const carregarAgendamentos = async () => {
     try {
-      console.log("Buscando agendamentos para usuário:", usuarioLogado.id);
       const resp = await axios.get(
         `http://localhost:3000/agendamento?id=${usuarioLogado.id}`
       );
-      console.log("Agendamentos recebidos:", resp.data);
       setAgendamentos(resp.data);
     } catch (error) {
       console.error("Erro ao carregar agendamentos:", error);
@@ -64,10 +53,11 @@ export default function AgendamentoDescarte({ onAgendar }) {
   };
 
   useEffect(() => {
-    carregarAgendamentos();
-  }, [usuarioLogado.id]);
+    if (usuarioLogado?.id) {
+      void carregarAgendamentos();
+    }
+  }, [usuarioLogado]);
 
-  // Cadastro de novo agendamento
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -77,26 +67,21 @@ export default function AgendamentoDescarte({ onAgendar }) {
     }
 
     try {
-      console.log("Enviando novo agendamento:", { nome, tamanho, data, hora, pontoColetaId });
+      await axios.post("http://localhost:3000/agendamento", {
+        nome_item: nome,
+        tamanho_item: tamanho,
+        data_hora: `${data}T${hora}`,
+        id_usuario: usuarioLogado.id,
+        id_ponto_coleta: Number(pontoColetaId),
+      });
+
       toast.success("Agendamento realizado com sucesso!");
       setNome("");
       setTamanho("pequeno");
       setData("");
       setHora("");
       setPontoColetaId("");
-      await axios.post("http://localhost:3000/agendamento", {
-        nome_item: nome,
-        tamanho_item: tamanho,
-        data_hora: `${data}T${hora}`,
-        id_usuario: usuarioLogado.id,
-        id_ponto_coleta: pontoColetaId,
-      });
-
-      
-
-      // Atualiza lista local
       await carregarAgendamentos();
-
       if (onAgendar) onAgendar();
     } catch (err) {
       console.error("Erro no agendamento:", err);
@@ -104,7 +89,6 @@ export default function AgendamentoDescarte({ onAgendar }) {
     }
   };
 
-  // Iniciar edição do agendamento selecionado
   const iniciarEdicao = (agendamento) => {
     const [dataPart, horaPart] = agendamento.data_hora.split("T");
     setFormData({
@@ -117,7 +101,6 @@ export default function AgendamentoDescarte({ onAgendar }) {
     setEditandoId(agendamento.id_agendamento);
   };
 
-  // Cancelar edição
   const cancelarEdicao = () => {
     setEditandoId(null);
     setFormData({
@@ -129,7 +112,6 @@ export default function AgendamentoDescarte({ onAgendar }) {
     });
   };
 
-  // Atualizar dados do form de edição
   const handleChange = (e) => {
     setFormData((old) => ({
       ...old,
@@ -137,7 +119,6 @@ export default function AgendamentoDescarte({ onAgendar }) {
     }));
   };
 
-  // Salvar edição do agendamento
   const salvarEdicao = async () => {
     const { nome, tamanho, data, hora, pontoColetaId } = formData;
 
@@ -152,12 +133,11 @@ export default function AgendamentoDescarte({ onAgendar }) {
         tamanho_item: tamanho,
         data_hora: `${data}T${hora}`,
         id_usuario: usuarioLogado.id,
-        id_ponto_coleta: pontoColetaId,
+        id_ponto_coleta: Number(pontoColetaId),
       });
 
       toast.success("Agendamento atualizado com sucesso!");
       cancelarEdicao();
-
       await carregarAgendamentos();
     } catch (err) {
       console.error("Erro ao atualizar:", err);
@@ -165,20 +145,24 @@ export default function AgendamentoDescarte({ onAgendar }) {
     }
   };
 
-  // Excluir agendamento
   const excluir = async (id) => {
-    if (!window.confirm("Tem certeza que deseja excluir este agendamento?")) return;
+    if (!window.confirm("Tem certeza que deseja excluir este agendamento?"))
+      return;
 
     try {
       await axios.delete(`http://localhost:3000/agendamento/${id}`);
       toast.success("Agendamento excluído.");
-
       setAgendamentos((old) => old.filter((a) => a.id_agendamento !== id));
     } catch (err) {
       console.error("Erro ao excluir agendamento:", err);
       toast.error("Erro ao excluir agendamento.");
     }
   };
+
+  if (!usuarioLogado) {
+    toast.error("Você precisa estar logado para agendar.");
+    return <div>Usuário não logado. Faça login para continuar.</div>;
+  }
 
   return (
     <>
@@ -236,7 +220,11 @@ export default function AgendamentoDescarte({ onAgendar }) {
           ))}
         </select>
 
-        <button type="submit" className="btn-eco" disabled={editandoId !== null}>
+        <button
+          type="submit"
+          className="btn-eco"
+          disabled={editandoId !== null}
+        >
           Agendar
         </button>
       </form>
@@ -256,115 +244,113 @@ export default function AgendamentoDescarte({ onAgendar }) {
           </tr>
         </thead>
         <tbody>
-          {agendamentos.length === 0 && (
+          {agendamentos.length === 0 ? (
             <tr>
               <td colSpan="5" style={{ textAlign: "center" }}>
                 Nenhum agendamento encontrado.
               </td>
             </tr>
-          )}
-          {agendamentos.map((a) =>
-            editandoId === a.id_agendamento ? (
-              <tr key={a.id_agendamento}>
-                <td>
-                  <input
-                    name="nome"
-                    value={formData.nome}
-                    onChange={handleChange}
-                    className="input-eco"
-                  />
-                </td>
-                <td>
-                  <select
-                    name="tamanho"
-                    value={formData.tamanho}
-                    onChange={handleChange}
-                    className="input-eco"
-                  >
-                    <option value="pequeno">Pequeno</option>
-                    <option value="medio">Médio</option>
-                    <option value="grande">Grande</option>
-                  </select>
-                </td>
-                <td>
-                  <input
-                    type="date"
-                    name="data"
-                    value={formData.data}
-                    onChange={handleChange}
-                    className="input-eco"
-                  />
-                  <input
-                    type="time"
-                    name="hora"
-                    value={formData.hora}
-                    onChange={handleChange}
-                    className="input-eco"
-                  />
-                </td>
-                <td>
-                  <select
-                    name="pontoColetaId"
-                    value={formData.pontoColetaId}
-                    onChange={handleChange}
-                    className="input-eco"
-                  >
-                    <option value="">Selecione</option>
-                    {pontosDisponiveis.map((p) => (
-                      <option key={p.id_ponto_coleta} value={p.id_ponto_coleta}>
-                        {p.nome_ponto} — {p.localizacao || p.bairro}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-                <td>
-                  <button
-                    onClick={salvarEdicao}
-                    className="btn-eco btn-success"
-                    type="button"
-                  >
-                    Salvar
-                  </button>
-                  <button
-                    onClick={cancelarEdicao}
-                    className="btn-eco btn-cancel"
-                    type="button"
-                  >
-                    Cancelar
-                  </button>
-                </td>
-              </tr>
-            ) : (
-              <tr key={a.id_agendamento}>
-                <td>{a.nome_item}</td>
-                <td>{a.tamanho_item}</td>
-                <td>{new Date(a.data_hora).toLocaleString()}</td>
-                <td>
-                  {
-                    pontosDisponiveis.find(
+          ) : (
+            agendamentos.map((a) =>
+              editandoId === a.id_agendamento ? (
+                <tr key={a.id_agendamento}>
+                  <td>
+                    <input
+                      name="nome"
+                      value={formData.nome}
+                      onChange={handleChange}
+                      className="input-eco"
+                    />
+                  </td>
+                  <td>
+                    <select
+                      name="tamanho"
+                      value={formData.tamanho}
+                      onChange={handleChange}
+                      className="input-eco"
+                    >
+                      <option value="pequeno">Pequeno</option>
+                      <option value="medio">Médio</option>
+                      <option value="grande">Grande</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      type="date"
+                      name="data"
+                      value={formData.data}
+                      onChange={handleChange}
+                      className="input-eco"
+                    />
+                    <input
+                      type="time"
+                      name="hora"
+                      value={formData.hora}
+                      onChange={handleChange}
+                      className="input-eco"
+                    />
+                  </td>
+                  <td>
+                    <select
+                      name="pontoColetaId"
+                      value={formData.pontoColetaId}
+                      onChange={handleChange}
+                      className="input-eco"
+                    >
+                      <option value="">Selecione</option>
+                      {pontosDisponiveis.map((p) => (
+                        <option
+                          key={p.id_ponto_coleta}
+                          value={p.id_ponto_coleta}
+                        >
+                          {p.nome_ponto} — {p.localizacao || p.bairro}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                  <td>
+                    <button
+                      onClick={salvarEdicao}
+                      className="btn-eco btn-success"
+                    >
+                      Salvar
+                    </button>
+                    <button
+                      onClick={cancelarEdicao}
+                      className="btn-eco btn-cancel"
+                    >
+                      Cancelar
+                    </button>
+                  </td>
+                </tr>
+              ) : (
+                <tr key={a.id_agendamento}>
+                  <td>{a.nome_item}</td>
+                  <td>{a.tamanho_item}</td>
+                  <td>{new Date(a.data_hora).toLocaleString()}</td>
+                  <td>
+                    {pontosDisponiveis.find(
                       (p) => p.id_ponto_coleta === a.id_ponto_coleta
-                    )?.nome_ponto || "—"
-                  }
-                </td>
-                <td>
-                  <button
-                    onClick={() => iniciarEdicao(a)}
-                    className="btn-eco btn-edit"
-                    type="button"
-                    disabled={editandoId !== null}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    onClick={() => excluir(a.id_agendamento)}
-                    className="btn-eco btn-delete"
-                    type="button"
-                    disabled={editandoId !== null}
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
+                    )?.nome_ponto || "—"}
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => iniciarEdicao(a)}
+                      className="btn-eco btn-edit"
+                      disabled={editandoId !== null}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => excluir(a.id_agendamento)}
+                      className="btn-eco btn-delete"
+                      disabled={editandoId !== null}
+                    >
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              )
             )
           )}
         </tbody>

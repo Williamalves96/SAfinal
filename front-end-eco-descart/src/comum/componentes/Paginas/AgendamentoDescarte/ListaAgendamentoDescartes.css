@@ -1,0 +1,81 @@
+.tabela-agendamentos {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+  
+  .tabela-agendamentos th,
+  .tabela-agendamentos td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .tabela-agendamentos thead {
+    background-color: #08967D;
+    color: white;
+  }
+  
+  .tabela-agendamentos tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .tabela-agendamentos td button {
+    margin-right: 8px;
+  }
+  
+  .btn-edit {
+    background-color: #f0ad4e;
+  }
+  
+  .btn-edit:hover {
+    background-color: #ec971f;
+  }
+  
+  .btn-delete {
+    background-color: #d9534f;
+  }
+  
+  .btn-delete:hover {
+    background-color: #c9302c;
+  }
+  
+  .btn-success {
+    background-color: #5cb85c;
+  }
+  
+  .btn-success:hover {
+    background-color: #449d44;
+  }
+  
+  .btn-cancel {
+    background-color: #6c757d;
+  }
+  
+  .btn-cancel:hover {
+    background-color: #5a6268;
+  }
+  
+  @media (max-width: 768px) {
+    .tabela-agendamentos {
+      font-size: 14px;
+    }
+  
+    .tabela-agendamentos th,
+    .tabela-agendamentos td {
+      padding: 10px;
+    }
+  
+    .tabela-agendamentos td button {
+      display: block;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+  }
+  
